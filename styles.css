@@ -546,12 +546,13 @@ h3 {
   background: linear-gradient(135deg, #fff2db, #d9eef2);
   display: grid;
   overflow: hidden;
+  padding: 0.45rem;
   place-items: center;
 }
 
 .product-media img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   width: 100%;
 }
@@ -1113,7 +1114,7 @@ dialog::backdrop {
   background: var(--cream);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
