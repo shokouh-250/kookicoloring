@@ -183,10 +183,10 @@ const products = [
     description: "A festive Christmas coloring book with cozy seasonal pages, cheerful details, and gentle holiday magic.",
     price: "See listing",
     badge: "Seasonal",
-    image: "assets/real/covers/emmas-christmas-placeholder.svg",
-    alt: "Emma's Christmas cover placeholder",
+    image: "assets/Book Covers/Emma's Christmas/Emma's-Christmas-Front Cover.png",
+    alt: "Emma's Christmas coloring book front cover",
     previews: [
-      { image: "assets/real/covers/emmas-christmas-placeholder.svg", alt: "Emma's Christmas cover placeholder" },
+      { image: "assets/Book Covers/Emma's Christmas/Emma's-Christmas-Back Cover.png", alt: "Emma's Christmas back cover with book details" },
     ],
     sections: ["new", "physical"],
     collection: "Seasonal",
