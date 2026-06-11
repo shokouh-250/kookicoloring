@@ -13,6 +13,10 @@ const products = [
     sections: ["new", "best", "physical"],
     collection: "Cute & Cozy",
     format: "Paperback",
+    purchaseLinks: {
+      amazon: "https://tr.ee/2jg5J4uYoY",
+      etsy: "https://www.etsy.com/listing/4306234775/cozyrosy-coloring-book-cute-printable?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_1&crt=1&dd=1&logging_key=230ff0bbbbad24a038c9ae80026fd587e42bde31%3A4306234775",
+    },
   },
   {
     id: "cutie-pies",
@@ -29,6 +33,9 @@ const products = [
     sections: ["new", "best", "physical"],
     collection: "Soft & Sweet",
     format: "Paperback",
+    purchaseLinks: {
+      amazon: "https://tr.ee/fUQGurK-az",
+    },
   },
   {
     id: "relaxed-lines",
@@ -60,6 +67,10 @@ const products = [
     sections: ["best", "physical"],
     collection: "Pattern Play",
     format: "Paperback",
+    purchaseLinks: {
+      amazon: "https://tr.ee/-QhFoZgGWz",
+      etsy: "https://www.etsy.com/listing/4307075918/pattern-party-printable-pattern-coloring?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_4&dd=1&logging_key=4f978d2e424aec3419bcd605f53c1a895ba79b53%3A4307075918",
+    },
   },
   {
     id: "the-nibnubs",
@@ -77,6 +88,9 @@ const products = [
     sections: ["new", "physical"],
     collection: "Kids",
     format: "Paperback",
+    purchaseLinks: {
+      amazon: "https://tr.ee/saxdxbIhCe",
+    },
   },
   {
     id: "the-boo-crew",
@@ -197,11 +211,11 @@ const galleryItems = [
 const faqs = [
   {
     question: "Where can I buy physical books?",
-    answer: "Physical Kooki Coloring books can be linked from each View Book or Buy Now button. Connect those buttons to your Amazon listings, Shopify checkout, Etsy shop, or preferred bookstore links before launch.",
+    answer: "Physical Kooki Coloring books can be purchased through the Amazon and Etsy buttons on each available book card.",
   },
   {
     question: "How do digital downloads work?",
-    answer: "Digital downloads should be delivered as printable PDF files after checkout or email signup. The current buttons are ready to connect to your email platform or checkout provider.",
+    answer: "Digital downloads are printable PDF files. Free sample pages are shared through the signup form, and paid digital listings can be linked to Etsy or your preferred checkout.",
   },
   {
     question: "What printing settings do you recommend?",
@@ -241,6 +255,41 @@ function heartIcon() {
   return iconPath("M19.5 12.6 12 20l-7.5-7.4a5 5 0 0 1 7.1-7.1l.4.4.4-.4a5 5 0 0 1 7.1 7.1Z");
 }
 
+function externalLinkIcon() {
+  return iconPath("M14 4h6v6M20 4l-9 9M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5");
+}
+
+function createPurchaseLinks(product, variant = "card") {
+  const marketplaces = [
+    { key: "amazon", label: "Amazon" },
+    { key: "etsy", label: "Etsy" },
+  ];
+  const links = marketplaces.filter((marketplace) => product.purchaseLinks?.[marketplace.key]);
+
+  if (!links.length) {
+    return "";
+  }
+
+  return `
+    <div class="purchase-links purchase-links-${variant}" aria-label="Purchase ${product.title}">
+      ${links
+        .map((marketplace) => `
+          <a
+            class="button purchase-link purchase-link-${marketplace.key}"
+            href="${product.purchaseLinks[marketplace.key]}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Buy ${product.title} on ${marketplace.label} (opens in a new tab)"
+          >
+            <span>Buy on ${marketplace.label}</span>
+            ${externalLinkIcon()}
+          </a>
+        `)
+        .join("")}
+    </div>
+  `;
+}
+
 function createProductCard(product) {
   const card = document.createElement("article");
   const imageStyle = product.imagePosition ? ` style="object-position: ${product.imagePosition};"` : "";
@@ -265,6 +314,7 @@ function createProductCard(product) {
             : `<span class="price">${product.price}</span>`
         }
       </div>
+      ${createPurchaseLinks(product)}
       <button class="button secondary" type="button" data-view="${product.id}">View Book</button>
     </div>
   `;
@@ -428,7 +478,7 @@ function openProduct(productId) {
           }
         </div>
         <div class="dialog-actions">
-          <button class="button primary" type="button" data-buy="${product.id}">Buy Now</button>
+          ${createPurchaseLinks(product, "dialog")}
           <button class="button secondary" type="button" data-favorite="${product.id}">${wishlist.has(product.id) ? "Remove Favorite" : "Add Favorite"}</button>
         </div>
       </div>
@@ -493,12 +543,6 @@ function initEvents() {
     const view = event.target.closest("[data-view]");
     if (view) {
       openProduct(view.dataset.view);
-    }
-
-    const buy = event.target.closest("[data-buy]");
-    if (buy) {
-      buy.textContent = "Checkout Link Coming Soon";
-      buy.setAttribute("aria-label", "Checkout link ready to connect");
     }
 
     const close = event.target.closest(".dialog-close");
