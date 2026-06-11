@@ -82,10 +82,10 @@ const products = [
     description: "Ten cozy printable pages with gentle scenes, soft details, and an easygoing coloring rhythm.",
     price: "See listing",
     badge: "Digital",
-    image: "assets/real/covers/soft-days-placeholder.svg",
-    alt: "Soft Days cover placeholder",
+    image: "assets/Book Covers/Soft Days/Soft-Days-Front Cover.png",
+    alt: "Soft Days coloring book front cover",
     previews: [
-      { image: "assets/real/covers/soft-days-placeholder.svg", alt: "Soft Days cover placeholder" },
+      { image: "assets/Book Covers/Soft Days/Soft-Days-Back Cover.png", alt: "Soft Days back cover with book details" },
     ],
     sections: ["new", "digital"],
     collection: "Cute & Cozy",
