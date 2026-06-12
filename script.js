@@ -1,3 +1,7 @@
+const assetBase = document.body.dataset.page === "shop" ? "../" : "";
+const shopPath = document.body.dataset.page === "shop" ? "./" : "shop/";
+const homePath = document.body.dataset.page === "shop" ? "../" : "";
+
 const products = [
   {
     id: "cozy-rosy",
@@ -22,6 +26,7 @@ const products = [
       amazon: "https://mybook.to/CozyRosy",
       etsy: "https://www.etsy.com/listing/4306234775/cozyrosy-coloring-book-cute-printable?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_1&crt=1&dd=1&logging_key=230ff0bbbbad24a038c9ae80026fd587e42bde31%3A4306234775",
     },
+    keywords: ["cozy", "rosy", "dreamy", "peaceful", "self care", "cute", "physical"],
   },
   {
     id: "cutie-pies",
@@ -47,6 +52,7 @@ const products = [
       amazon: "https://mybook.to/CutePies",
       etsy: "",
     },
+    keywords: ["cutie", "pies", "soft", "sweet", "woodland", "animals", "physical"],
   },
   {
     id: "pawtraits-of-time",
@@ -71,6 +77,7 @@ const products = [
       amazon: "https://mybook.to/Pawtraits-of-Time",
       etsy: "",
     },
+    keywords: ["pets", "portrait", "pawtraits", "animals", "physical"],
   },
   {
     id: "everyday-joy",
@@ -95,6 +102,7 @@ const products = [
       amazon: "https://mybook.to/EverydayJoy",
       etsy: "https://www.etsy.com/listing/4309165976/everyday-joy-coloring-book-cute-simple?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_2&dd=1&logging_key=1df2fdbb729d74532ac7783149d19deb48f0ba27%3A4309165976",
     },
+    keywords: ["everyday", "joy", "cute", "cozy", "simple", "digital", "physical"],
   },
   {
     id: "soft-days",
@@ -119,6 +127,7 @@ const products = [
       amazon: "",
       etsy: "https://www.etsy.com/listing/4354721878/soft-days-coloring-book-10-cozy-pages?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_3&dd=1&logging_key=f4e871e1952502a64f31e98b7ebd793f059471d2%3A4354721878",
     },
+    keywords: ["soft", "days", "cozy", "printable", "digital", "pdf"],
   },
   {
     id: "relaxed-lines",
@@ -143,6 +152,7 @@ const products = [
       amazon: "https://mybook.to/RelaxedLines",
       etsy: "https://www.etsy.com/listing/4307531895/relaxed-line-coloring-book-bold-easy-art?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_5&dd=1&logging_key=465df492f386166ffbf4420901659125f3cb5cad%3A4307531895",
     },
+    keywords: ["relaxed", "lines", "bold", "easy", "stress relief", "cozy", "physical"],
   },
   {
     id: "pattern-party",
@@ -169,6 +179,7 @@ const products = [
       amazon: "https://mybook.to/Pattern-Party",
       etsy: "https://www.etsy.com/listing/4307075918/pattern-party-printable-pattern-coloring?sr_prefetch=1&pf_from=shop_home&ref=shop_home_active_4&dd=1&logging_key=4f978d2e424aec3419bcd605f53c1a895ba79b53%3A4307075918",
     },
+    keywords: ["pattern", "party", "repeats", "playful", "physical"],
   },
   {
     id: "the-nibnubs",
@@ -195,6 +206,7 @@ const products = [
       amazon: "https://mybook.to/Nib-Nubs",
       etsy: "",
     },
+    keywords: ["nibnubs", "kids", "silly", "cozy", "physical"],
   },
   {
     id: "the-boo-crew",
@@ -221,6 +233,7 @@ const products = [
       amazon: "https://mybook.to/Boo-Crew",
       etsy: "",
     },
+    keywords: ["boo", "crew", "halloween", "spooky", "seasonal", "ghost", "pumpkin"],
   },
   {
     id: "emmas-christmas",
@@ -245,6 +258,7 @@ const products = [
       amazon: "https://mybook.to/Emma-Christmas",
       etsy: "",
     },
+    keywords: ["emma", "christmas", "holiday", "seasonal", "winter", "physical"],
   },
   {
     id: "holiday-minis",
@@ -260,6 +274,7 @@ const products = [
     sections: ["new", "digital"],
     collection: "Seasonal",
     format: "PDF Download",
+    keywords: ["holiday", "christmas", "seasonal", "winter", "digital", "pdf"],
   },
   {
     id: "bonus-page-pack",
@@ -275,6 +290,7 @@ const products = [
     sections: ["digital"],
     collection: "Free Pages",
     format: "PDF Download",
+    keywords: ["free", "bonus", "sample", "printable", "download", "digital"],
   },
   {
     id: "cutie-pies-sample-pack",
@@ -291,6 +307,7 @@ const products = [
     sections: ["digital"],
     collection: "Free Pages",
     format: "PDF Download",
+    keywords: ["cutie", "pies", "sample", "printable", "digital", "download"],
   },
   {
     id: "monster-coloring-pages",
@@ -307,100 +324,125 @@ const products = [
     sections: ["digital", "best"],
     collection: "Spooky Cute",
     format: "PDF Download",
+    keywords: ["monster", "winter", "pink", "party", "digital", "download"],
   },
 ];
 
-const collections = [
-  { name: "Free Pages", color: "#dce9b2", icon: "M7 3h7l4 4v14H7zM14 3v5h5M9 13h6M9 17h6" },
-  { name: "Bold & Easy", color: "#f5df89", icon: "M7 7h10v10H7zM4 12h16" },
-  { name: "Seasonal", color: "#f7c98c", icon: "M12 3v18M5 8l14 8M19 8 5 16" },
-];
+const featuredProductIds = ["cozy-rosy", "cutie-pies", "relaxed-lines", "pattern-party", "the-boo-crew", "soft-days"];
+const currentState = {
+  query: "",
+  filter: "all",
+  sort: "newest",
+};
 
-const blogCards = [
-  { title: "Coloring Tips", text: "Layering, pressure, and palette ideas for pages that feel finished.", color: "#ffd8c9" },
-  { title: "Tools & Supplies", text: "Pencils, markers, paper, and printer settings that play nicely together.", color: "#b7e5d0" },
-  { title: "Color Inspiration", text: "Cozy palette prompts for florals, rooms, animals, and seasonal pages.", color: "#ffd66b" },
-  { title: "Behind the Books", text: "Sketchbook notes, cover drafts, and the little rituals behind each release.", color: "#a7d8e8" },
-  { title: "DIY Creative Lifestyle", text: "Simple ways to turn finished pages into gifts, decor, and craft nights.", color: "#c9b8f2" },
-];
-
-const testimonials = [
-  { quote: "The bold Kooki lines make the pages relaxing without feeling empty.", name: "Maya, evening colorist" },
-  { quote: "Cutie Pies and Cozy Rosy feel sweet, gentle, and easy to color with kids.", name: "Nora, family craft night host" },
-  { quote: "The seasonal pages are playful enough for markers and still charming in pencils.", name: "Jess, printable-page fan" },
-];
-
-const galleryItems = [
-  { image: "assets/real/gallery/snowy-monsters-finished.jpg", caption: "Snowy monster window page in cool blues" },
-  { image: "assets/real/gallery/pink-monster-finished.jpg", caption: "Pink monster party page with bold contrast" },
-  { image: "assets/real/gallery/boo-crew-picnic-finished.jpg", caption: "The Boo Crew ghost picnic finished page" },
-  { image: "assets/real/gallery/boo-crew-pumpkin-finished.jpg", caption: "The Boo Crew pumpkin scene with soft texture" },
-  { image: "assets/real/gallery/pattern-party-bees-finished.jpg", caption: "Pattern Party bees and flowers finished page" },
-  { image: "assets/real/gallery/nibnubs-fish-finished.jpg", caption: "The Nibnubs fish page in bright color" },
-  { image: "assets/real/gallery/nibnubs-balloon-finished.jpg", caption: "The Nibnubs hot-air balloon mini page" },
-  { image: "assets/real/gallery/pattern-party-four-panels.jpg", caption: "Four colorful Pattern Party panels" },
-];
-
-const faqs = [
-  {
-    question: "Where can I buy physical books?",
-    answer: "Physical Kooki Coloring books can be purchased through the Amazon and Etsy buttons on each available book card.",
-  },
-  {
-    question: "How do digital downloads work?",
-    answer: "Digital downloads are printable PDF files. Free sample pages are shared through the signup form, and paid digital listings can be linked to Etsy or your preferred checkout.",
-  },
-  {
-    question: "What printing settings do you recommend?",
-    answer: "Print digital pages at 100 percent scale or fit-to-page on smooth white paper or cardstock. If you color with wet markers, test one sheet first and place scrap paper behind the page.",
-  },
-  {
-    question: "What is your refund and support policy?",
-    answer: "For physical books, refunds are usually handled by the marketplace where the book was purchased. For digital downloads, provide support for access issues and clarify final refund terms before launch.",
-  },
-  {
-    question: "Where can customers share finished pages?",
-    answer: "Invite customers to tag your social accounts or email finished pages to hello@kookicoloring.com so you can feature them in the gallery with permission.",
-  },
-];
-
-const wishlist = new Set();
-
-const productSections = document.querySelectorAll(".product-grid[data-section]");
-const collectionGrid = document.querySelector(".collection-grid");
-const blogGrid = document.querySelector(".blog-grid");
-const testimonialGrid = document.querySelector(".testimonial-grid");
-const galleryGrid = document.querySelector(".gallery-grid");
-const faqList = document.querySelector(".faq-list");
 const searchInput = document.querySelector("#siteSearch");
+const searchForm = document.querySelector("[data-search-form]");
 const searchStatus = document.querySelector("#searchStatus");
 const productDialog = document.querySelector("#productDialog");
 const dialogContent = document.querySelector(".dialog-content");
-const wishlistDialog = document.querySelector("#wishlistDialog");
-const wishlistList = document.querySelector(".wishlist-list");
-const wishlistCount = document.querySelector(".wishlist-count");
+const shopGrid = document.querySelector('[data-products="shop"]');
+const featuredGrid = document.querySelector('[data-products="featured"]');
+const emptyState = document.querySelector("[data-empty-state]");
+const sortSelect = document.querySelector("#sortSelect");
 
 function iconPath(path) {
   return `<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="${path}"></path></svg>`;
-}
-
-function heartIcon() {
-  return iconPath("M19.5 12.6 12 20l-7.5-7.4a5 5 0 0 1 7.1-7.1l.4.4.4-.4a5 5 0 0 1 7.1 7.1Z");
 }
 
 function externalLinkIcon() {
   return iconPath("M14 4h6v6M20 4l-9 9M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5");
 }
 
+function assetPath(path) {
+  if (!path || /^https?:|^mailto:|^#/.test(path)) {
+    return path;
+  }
+  return `${assetBase}${path}`;
+}
+
+function productPrice(product) {
+  const source = product.salePrice || product.price || "";
+  const parsed = Number(String(source).replace(/[^0-9.]/g, ""));
+  if (Number.isFinite(parsed)) {
+    return parsed;
+  }
+  return 9999;
+}
+
+function isFreeProduct(product) {
+  return product.badge === "Free" || product.price === "$0" || product.collection === "Free Pages";
+}
+
+function getProductType(product) {
+  if (isFreeProduct(product)) return "Free Download";
+  if (product.sections.includes("physical") && product.sections.includes("digital")) return "Coloring Book + Digital";
+  if (product.sections.includes("physical")) return "Coloring Book";
+  if (product.sections.includes("digital")) return "Digital Download";
+  return product.format || "Coloring Book";
+}
+
+function productMatchesFilter(product, filter) {
+  if (filter === "all") return true;
+  if (filter === "coloring") return product.sections.includes("physical");
+  if (filter === "digital") return product.sections.includes("digital") && !isFreeProduct(product);
+  if (filter === "free") return isFreeProduct(product);
+  return true;
+}
+
+function searchIndex(product) {
+  return [
+    product.title,
+    product.description,
+    product.badge,
+    product.collection,
+    product.format,
+    getProductType(product),
+    ...(product.sections || []),
+    ...(product.keywords || []),
+  ]
+    .join(" ")
+    .toLowerCase();
+}
+
+function productMatchesSearch(product, query) {
+  return !query || searchIndex(product).includes(query.trim().toLowerCase());
+}
+
+function sortedProducts(items, sort) {
+  const ordered = [...items];
+  const sorters = {
+    newest: (a, b) => products.indexOf(a) - products.indexOf(b),
+    az: (a, b) => a.title.localeCompare(b.title),
+    za: (a, b) => b.title.localeCompare(a.title),
+    "price-low": (a, b) => productPrice(a) - productPrice(b),
+    "price-high": (a, b) => productPrice(b) - productPrice(a),
+    rating: () => 0,
+    popularity: () => 0,
+  };
+  return ordered.sort(sorters[sort] || sorters.newest);
+}
+
 function createPurchaseLinks(product, variant = "card") {
+  if (isFreeProduct(product)) {
+    return `
+      <div class="purchase-links purchase-links-${variant}">
+        <a class="button purchase-link purchase-link-free" href="${homePath}#newsletter">Free Download</a>
+      </div>
+    `;
+  }
+
   const marketplaces = [
-    { key: "amazon", label: "Amazon" },
-    { key: "etsy", label: "Etsy" },
+    { key: "amazon", label: "Amazon", action: "View on Amazon" },
+    { key: "etsy", label: "Etsy", action: "View on Etsy" },
   ];
   const links = marketplaces.filter((marketplace) => product.purchaseLinks?.[marketplace.key]);
 
   if (!links.length) {
-    return "";
+    return `
+      <div class="purchase-links purchase-links-${variant}">
+        <a class="button purchase-link purchase-link-waitlist" href="${homePath}#newsletter">Get Updates</a>
+      </div>
+    `;
   }
 
   return `
@@ -412,9 +454,9 @@ function createPurchaseLinks(product, variant = "card") {
             href="${product.purchaseLinks[marketplace.key]}"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Buy ${product.title} on ${marketplace.label} (opens in a new tab)"
+            aria-label="${marketplace.action} for ${product.title} (opens in a new tab)"
           >
-            <span>Buy on ${marketplace.label}</span>
+            <span>${marketplace.action}</span>
             ${externalLinkIcon()}
           </a>
         `)
@@ -425,15 +467,12 @@ function createPurchaseLinks(product, variant = "card") {
 
 function createFlipPages(product) {
   const pages = product.flipImages?.slice(0, 3) || [];
-  if (!pages.length) {
-    return "";
-  }
-
+  if (!pages.length) return "";
   return `
     <div class="flip-pages" aria-hidden="true">
       ${pages
         .map((image, index) => `
-          <img class="flip-page flip-page-${index + 1}" src="${image}" alt="" loading="lazy">
+          <img class="flip-page flip-page-${index + 1}" src="${assetPath(image)}" alt="" loading="lazy">
         `)
         .join("")}
     </div>
@@ -444,23 +483,20 @@ function createProductCard(product) {
   const card = document.createElement("article");
   const imageStyle = product.imagePosition ? ` style="object-position: ${product.imagePosition};"` : "";
   card.className = "product-card";
-  card.dataset.search = `${product.title} ${product.description} ${product.badge} ${product.collection} ${product.format}`.toLowerCase();
   card.dataset.productId = product.id;
   card.tabIndex = 0;
   card.setAttribute("aria-label", `View ${product.title} details`);
   card.innerHTML = `
     <div class="product-media">
       <div class="book-flip">
-        <img class="product-cover" src="${product.image}" alt="${product.alt}" loading="lazy"${imageStyle}>
+        <img class="product-cover" src="${assetPath(product.image)}" alt="${product.alt}" loading="lazy"${imageStyle}>
         ${createFlipPages(product)}
       </div>
     </div>
     <span class="badge">${product.badge}</span>
-    <button class="favorite-button" type="button" aria-label="Add ${product.title} to wishlist" aria-pressed="false" data-favorite="${product.id}">
-      ${heartIcon()}
-    </button>
     <div class="product-body">
-      <h4>${product.title}</h4>
+      <p class="product-type">${getProductType(product)}</p>
+      <h3>${product.title}</h3>
       <p>${product.description}</p>
       <div class="price-row">
         ${
@@ -470,158 +506,60 @@ function createProductCard(product) {
         }
       </div>
       ${createPurchaseLinks(product)}
-      <button class="button secondary" type="button" data-view="${product.id}">View Book</button>
     </div>
   `;
   return card;
 }
 
-function renderProducts() {
-  productSections.forEach((section) => {
-    const sectionName = section.dataset.section;
-    const fragment = document.createDocumentFragment();
-    products
-      .filter((product) => sectionName === "all" || product.sections.includes(sectionName))
-      .forEach((product) => fragment.appendChild(createProductCard(product)));
-
-    const empty = document.createElement("div");
-    empty.className = "no-results";
-    empty.textContent = "No books match that search in this shelf yet.";
-    section.append(fragment, empty);
-  });
+function renderFeaturedProducts() {
+  if (!featuredGrid) return;
+  featuredGrid.replaceChildren();
+  featuredProductIds
+    .map((id) => products.find((product) => product.id === id))
+    .filter(Boolean)
+    .forEach((product) => featuredGrid.appendChild(createProductCard(product)));
 }
 
-function renderCollections() {
-  collections.forEach((collection) => {
-    const button = document.createElement("button");
-    button.className = "collection-tile";
-    button.type = "button";
-    button.style.setProperty("--tile-bg", collection.color);
-    button.dataset.collection = collection.name;
-    button.setAttribute("aria-pressed", "false");
-    button.innerHTML = `
-      <span class="collection-icon">${iconPath(collection.icon)}</span>
-      <h3>${collection.name}</h3>
-    `;
-    collectionGrid.appendChild(button);
-  });
-}
+function renderShopProducts() {
+  if (!shopGrid) return;
+  const visibleProducts = sortedProducts(
+    products.filter((product) => productMatchesFilter(product, currentState.filter) && productMatchesSearch(product, currentState.query)),
+    currentState.sort
+  );
 
-function renderBlog() {
-  blogCards.forEach((card) => {
-    const article = document.createElement("article");
-    article.className = "blog-card";
-    article.style.setProperty("--blog-bg", card.color);
-    article.innerHTML = `
-      <span>${iconPath("M5 5h14v14H5zM8 9h8M8 13h5")}</span>
-      <h3>${card.title}</h3>
-      <p>${card.text}</p>
-    `;
-    blogGrid.appendChild(article);
-  });
-}
+  shopGrid.replaceChildren();
+  visibleProducts.forEach((product) => shopGrid.appendChild(createProductCard(product)));
 
-function renderTestimonials() {
-  testimonials.forEach((item) => {
-    const quote = document.createElement("blockquote");
-    quote.className = "testimonial";
-    quote.innerHTML = `<p>${item.quote}</p><footer>${item.name}</footer>`;
-    testimonialGrid.appendChild(quote);
-  });
-}
-
-function renderGallery() {
-  galleryItems.forEach((item) => {
-    const figure = document.createElement("figure");
-    figure.className = "gallery-card";
-    figure.innerHTML = `<img src="${item.image}" alt="${item.caption}" loading="lazy"><figcaption>${item.caption}</figcaption>`;
-    galleryGrid.appendChild(figure);
-  });
-}
-
-function renderFaqs() {
-  faqs.forEach((item, index) => {
-    const wrapper = document.createElement("div");
-    wrapper.className = "faq-item";
-    const panelId = `faq-panel-${index}`;
-    wrapper.innerHTML = `
-      <button class="faq-button" type="button" aria-expanded="${index === 0 ? "true" : "false"}" aria-controls="${panelId}">
-        <span>${item.question}</span>
-        ${iconPath("M12 5v14M5 12h14")}
-      </button>
-      <div class="faq-panel" id="${panelId}" aria-hidden="${index === 0 ? "false" : "true"}">${item.answer}</div>
-    `;
-    faqList.appendChild(wrapper);
-  });
-}
-
-function filterProducts(query) {
-  const normalized = query.trim().toLowerCase();
-  let visibleCount = 0;
-
-  productSections.forEach((section) => {
-    const cards = [...section.querySelectorAll(".product-card")];
-    let sectionVisible = 0;
-
-    cards.forEach((card) => {
-      const matches = !normalized || card.dataset.search.includes(normalized);
-      card.hidden = !matches;
-      if (matches) {
-        visibleCount += 1;
-        sectionVisible += 1;
-      }
-    });
-
-    const empty = section.querySelector(".no-results");
-    empty.style.display = sectionVisible ? "none" : "block";
-    section.closest(".product-section").hidden = Boolean(normalized && !sectionVisible);
-  });
-
-  searchStatus.textContent = normalized
-    ? `${visibleCount} shelf item${visibleCount === 1 ? "" : "s"} match "${query}".`
-    : "Showing all Kooki picks.";
-
-  document.querySelectorAll("[data-collection]").forEach((button) => {
-    button.setAttribute("aria-pressed", String(normalized === button.dataset.collection.toLowerCase()));
-  });
-}
-
-function updateWishlistButtons() {
-  document.querySelectorAll("[data-favorite]").forEach((button) => {
-    const isFavorite = wishlist.has(button.dataset.favorite);
-    const product = products.find((item) => item.id === button.dataset.favorite);
-    button.setAttribute("aria-pressed", String(isFavorite));
-    button.setAttribute("aria-label", `${isFavorite ? "Remove" : "Add"} ${product.title} ${isFavorite ? "from" : "to"} wishlist`);
-  });
-  wishlistCount.textContent = String(wishlist.size);
-}
-
-function toggleWishlist(productId) {
-  if (wishlist.has(productId)) {
-    wishlist.delete(productId);
-  } else {
-    wishlist.add(productId);
+  if (emptyState) {
+    emptyState.style.display = visibleProducts.length ? "none" : "block";
   }
-  updateWishlistButtons();
+
+  if (searchStatus) {
+    const filterLabel = document.querySelector(`[data-filter="${currentState.filter}"]`)?.textContent || "products";
+    const queryText = currentState.query ? ` for "${currentState.query}"` : "";
+    searchStatus.textContent = visibleProducts.length
+      ? `Showing ${visibleProducts.length} ${filterLabel.toLowerCase()}${queryText}.`
+      : `No products found${queryText}. Try another keyword.`;
+  }
 }
 
 function openProduct(productId) {
   const product = products.find((item) => item.id === productId);
-  if (!product) return;
+  if (!product || !dialogContent || !productDialog) return;
   const imageStyle = product.imagePosition ? ` style="object-position: ${product.imagePosition};"` : "";
   const previewMarkup = product.previews?.length
     ? `
       <div class="preview-strip" aria-label="${product.title} preview images">
-        ${product.previews.map((preview) => `<img src="${preview.image}" alt="${preview.alt}" loading="lazy">`).join("")}
+        ${product.previews.map((preview) => `<img src="${assetPath(preview.image)}" alt="${preview.alt}" loading="lazy">`).join("")}
       </div>
     `
     : "";
 
   dialogContent.innerHTML = `
     <div class="dialog-product">
-      <img class="dialog-main-image" src="${product.image}" alt="${product.alt}"${imageStyle}>
+      <img class="dialog-main-image" src="${assetPath(product.image)}" alt="${product.alt}"${imageStyle}>
       <div class="dialog-info">
-        <p class="eyebrow">${product.badge} · ${product.format}</p>
+        <p class="eyebrow">${product.badge} · ${getProductType(product)}</p>
         <h2 id="dialogTitle">${product.title}</h2>
         <p>${product.description}</p>
         <p><strong>Collection:</strong> ${product.collection}</p>
@@ -635,40 +573,13 @@ function openProduct(productId) {
         </div>
         <div class="dialog-actions">
           ${createPurchaseLinks(product, "dialog")}
-          <button class="button secondary" type="button" data-favorite="${product.id}">${wishlist.has(product.id) ? "Remove Favorite" : "Add Favorite"}</button>
         </div>
       </div>
     </div>
   `;
 
-  if (typeof productDialog.showModal === "function") {
-    if (!productDialog.open) {
-      productDialog.showModal();
-    }
-  }
-}
-
-function openWishlist() {
-  if (wishlist.size === 0) {
-    wishlistList.innerHTML = "<p>Your wishlist is empty for now. Tap the heart on any book to save it here.</p>";
-  } else {
-    wishlistList.innerHTML = [...wishlist]
-      .map((id) => products.find((product) => product.id === id))
-      .filter(Boolean)
-      .map((product) => `
-        <div class="wishlist-item">
-          <img src="${product.image}" alt="${product.alt}">
-          <div>
-            <strong>${product.title}</strong>
-            <p>${product.collection} · ${product.salePrice || product.price}</p>
-          </div>
-        </div>
-      `)
-      .join("");
-  }
-
-  if (typeof wishlistDialog.showModal === "function") {
-    wishlistDialog.showModal();
+  if (typeof productDialog.showModal === "function" && !productDialog.open) {
+    productDialog.showModal();
   }
 }
 
@@ -680,33 +591,69 @@ function isInteractiveTarget(target) {
   return Boolean(target.closest("a, button, input, textarea, select, label, summary"));
 }
 
-function initEvents() {
-  searchInput.addEventListener("input", (event) => filterProducts(event.target.value));
+function syncQueryParam() {
+  if (document.body.dataset.page !== "shop") return;
+  const params = new URLSearchParams(window.location.search);
+  const initialQuery = params.get("q") || "";
+  currentState.query = initialQuery;
+  if (searchInput) searchInput.value = initialQuery;
+}
 
-  collectionGrid.addEventListener("click", (event) => {
-    const tile = event.target.closest("[data-collection]");
-    if (!tile) return;
-    searchInput.value = tile.dataset.collection;
-    filterProducts(tile.dataset.collection);
-    document.querySelector("#shop").scrollIntoView({ behavior: "smooth", block: "start" });
+function updateShopQueryParam() {
+  if (document.body.dataset.page !== "shop") return;
+  const url = new URL(window.location.href);
+  if (currentState.query) {
+    url.searchParams.set("q", currentState.query);
+  } else {
+    url.searchParams.delete("q");
+  }
+  window.history.replaceState({}, "", url);
+}
+
+function initSearch() {
+  if (!searchForm || !searchInput) return;
+
+  searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const query = searchInput.value.trim();
+    if (document.body.dataset.page === "shop") {
+      currentState.query = query;
+      updateShopQueryParam();
+      renderShopProducts();
+      return;
+    }
+    window.location.href = query ? `${shopPath}?q=${encodeURIComponent(query)}` : shopPath;
   });
 
+  searchInput.addEventListener("input", (event) => {
+    if (document.body.dataset.page !== "shop") return;
+    currentState.query = event.target.value.trim();
+    updateShopQueryParam();
+    renderShopProducts();
+  });
+}
+
+function initShopControls() {
+  if (!shopGrid) return;
+
+  document.querySelectorAll("[data-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      currentState.filter = button.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach((item) => {
+        item.setAttribute("aria-pressed", String(item === button));
+      });
+      renderShopProducts();
+    });
+  });
+
+  sortSelect?.addEventListener("change", (event) => {
+    currentState.sort = event.target.value;
+    renderShopProducts();
+  });
+}
+
+function initEvents() {
   document.addEventListener("click", (event) => {
-    const favorite = event.target.closest("[data-favorite]");
-    if (favorite) {
-      toggleWishlist(favorite.dataset.favorite);
-      if (favorite.closest("dialog")) {
-        openProduct(favorite.dataset.favorite);
-      }
-      return;
-    }
-
-    const view = event.target.closest("[data-view]");
-    if (view) {
-      openProduct(view.dataset.view);
-      return;
-    }
-
     const close = event.target.closest(".dialog-close");
     if (close) {
       closeDialog(close);
@@ -721,53 +668,29 @@ function initEvents() {
 
   document.addEventListener("keydown", (event) => {
     const card = event.target.closest(".product-card");
-    if (!card || event.target !== card || !["Enter", " "].includes(event.key)) {
-      return;
-    }
-
+    if (!card || event.target !== card || !["Enter", " "].includes(event.key)) return;
     event.preventDefault();
     openProduct(card.dataset.productId);
   });
 
-  document.querySelector(".wishlist-toggle").addEventListener("click", openWishlist);
-
-  faqList.addEventListener("click", (event) => {
-    const button = event.target.closest(".faq-button");
-    if (!button) return;
-    const panel = document.querySelector(`#${button.getAttribute("aria-controls")}`);
-    const isOpen = button.getAttribute("aria-expanded") === "true";
-    button.setAttribute("aria-expanded", String(!isOpen));
-    panel.setAttribute("aria-hidden", String(isOpen));
+  productDialog?.addEventListener("click", (event) => {
+    if (event.target === productDialog) {
+      productDialog.close();
+    }
   });
 
-  document.querySelector("#freebieForm").addEventListener("submit", (event) => {
+  document.querySelector("#freebieForm")?.addEventListener("submit", (event) => {
     event.preventDefault();
     document.querySelector("#freebieMessage").textContent = "Thank you. Your free pages signup is ready to connect to an email service.";
     event.currentTarget.reset();
   });
-
-  document.querySelector("#footer-newsletter").addEventListener("submit", (event) => {
-    event.preventDefault();
-    event.currentTarget.querySelector("button").textContent = "Joined";
-    event.currentTarget.reset();
-  });
-
-  [productDialog, wishlistDialog].forEach((dialog) => {
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) {
-        dialog.close();
-      }
-    });
-  });
 }
 
-renderProducts();
-renderCollections();
-renderBlog();
-renderTestimonials();
-renderGallery();
-renderFaqs();
-updateWishlistButtons();
+syncQueryParam();
+renderFeaturedProducts();
+renderShopProducts();
+initSearch();
+initShopControls();
 initEvents();
 
 document.querySelector("#year").textContent = new Date().getFullYear();

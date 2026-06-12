@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
-  <body>
+  <body data-page="home">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="announcement" role="banner">
@@ -23,12 +23,17 @@
 
     <header class="site-header">
       <div class="header-shell">
-        <form class="search" role="search" aria-label="Search Kooki Coloring books">
+        <form class="search" role="search" aria-label="Search Kooki Coloring books" data-search-form>
           <label class="sr-only" for="siteSearch">Search books and collections</label>
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+          <svg class="icon search-leading-icon" aria-hidden="true" viewBox="0 0 24 24">
             <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"></path>
           </svg>
-          <input id="siteSearch" type="search" placeholder="Search Kooki books">
+          <input id="siteSearch" name="q" type="search" placeholder="Search Kooki books">
+          <button class="search-submit" type="submit" aria-label="Search">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"></path>
+            </svg>
+          </button>
         </form>
 
         <a class="brand" href="#home" aria-label="Kooki Coloring home">
@@ -36,23 +41,16 @@
           <span class="sr-only">Kooki Coloring</span>
         </a>
 
-        <button class="icon-button wishlist-toggle" type="button" aria-label="Open wishlist">
-          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
-            <path d="M19.5 12.6 12 20l-7.5-7.4a5 5 0 0 1 7.1-7.1l.4.4.4-.4a5 5 0 0 1 7.1 7.1Z"></path>
-          </svg>
-          <span class="wishlist-count" aria-live="polite">0</span>
-        </button>
+        <a class="header-shop-link" href="shop/">Shop Books</a>
       </div>
 
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#home">Home</a>
-        <a href="#shop">Shop</a>
-        <a href="#collections">Collections</a>
+        <a href="shop/">Shop</a>
         <a href="#free-pages">Free Pages</a>
-        <a href="#blog">Blog</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#about">About</a>
-        <a href="#faq">FAQ</a>
+        <a href="#community">Community</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
@@ -60,14 +58,14 @@
       <section class="hero" id="home" aria-labelledby="hero-title">
         <div class="hero-visual real-hero">
           <div class="hero-copy">
-            <p class="eyebrow">Real Kooki books and pages</p>
-            <h1 id="hero-title">Kooki Coloring Books</h1>
+            <p class="eyebrow">A softer corner of the internet</p>
+            <h1 id="hero-title">Slow Down. Color Something Cozy.</h1>
             <p>
-              Sweet, bold, and cozy coloring books filled with playful Kooki characters, soothing pages, and easy creative breaks.
+              Sweet, bold, and cozy Kooki coloring books for calmer days, playful breaks, and easy creative rituals.
             </p>
             <div class="hero-actions" aria-label="Primary shopping actions">
-              <a class="button primary" href="#all-books">Shop Books</a>
-              <a class="button secondary" href="#free-pages">Download Free Pages</a>
+              <a class="button primary" href="shop/">Shop Books</a>
+              <a class="button secondary" href="#free-pages">Get Free Coloring Pages</a>
             </div>
           </div>
           <div class="hero-collage" aria-label="Featured Kooki Coloring book covers and sample pages">
@@ -78,7 +76,7 @@
         </div>
       </section>
 
-      <section class="intro-section section-pad" id="about" aria-labelledby="intro-title">
+      <section class="intro-section section-pad" aria-labelledby="intro-title">
         <div class="section-shell intro-grid">
           <div>
             <p class="eyebrow">Welcome to your coloring corner</p>
@@ -86,63 +84,77 @@
             <p>
               Kooki Coloring is made for the sweet pause in your day: a cup of tea, a handful of pencils, and pages that invite you to relax, play, and color without pressure.
             </p>
-            <p>
-              From bold and easy designs to mindful detail pages, each book is created to support self-care, family-friendly creativity, and the simple joy of finishing something beautiful.
-            </p>
           </div>
           <img class="line-banner" src="assets/real/covers/free-bonus-page.jpg" alt="Printable bonus coloring page with cute poolside characters">
         </div>
-      </section>
-
-      <section class="shop-section section-pad" id="shop" aria-labelledby="shop-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Shop the shelves</p>
-              <h2 id="shop-title">Coloring Books & Downloads</h2>
-            </div>
-            <p id="searchStatus" class="search-status" aria-live="polite">Showing all Kooki picks.</p>
-          </div>
-
-          <div class="product-section" id="all-books">
-            <div class="product-heading">
-              <h3>All Books & Downloads</h3>
-              <a href="#collections">Explore Collections</a>
-            </div>
-            <div class="product-grid" data-section="all"></div>
-          </div>
-
-          <div class="product-section" id="best-sellers">
-            <div class="product-heading">
-              <h3>Best Sellers</h3>
-              <a href="#gallery">See Finished Pages</a>
-            </div>
-            <div class="product-grid" data-section="best"></div>
-          </div>
+        <div class="section-shell character-parade" aria-label="Kooki Coloring characters">
+          <img src="assets/characters/kooki-flower-bug.png" alt="Smiling flower bug character">
+          <img src="assets/characters/kooki-fox-squirrel.png" alt="Waving orange Kooki squirrel character">
+          <img src="assets/characters/kooki-lavender-blob.png" alt="Lavender Kooki character">
+          <img src="assets/characters/kooki-mint-ghost.png" alt="Mint ghost Kooki character">
+          <img src="assets/characters/kooki-pink-monster.png" alt="Pink monster Kooki character">
         </div>
       </section>
 
-      <section class="collections-section section-pad" id="collections" aria-labelledby="collections-title">
+      <section class="shop-section section-pad" id="featured-books" aria-labelledby="featured-title">
         <div class="section-shell">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Quick browse</p>
-              <h2 id="collections-title">Collections</h2>
+              <p class="eyebrow">A small shelf to start</p>
+              <h2 id="featured-title">Featured Books</h2>
             </div>
-            <p>Quick paths into the most useful Kooki shelves: freebies, bold easy pages, and seasonal favorites.</p>
+            <a class="text-link" href="shop/">Browse the full shop</a>
           </div>
-          <div class="collection-grid"></div>
+          <div class="product-grid featured-grid" data-products="featured"></div>
         </div>
       </section>
 
-      <section class="freebie-section section-pad" id="free-pages" aria-labelledby="freebie-title">
-        <div class="section-shell freebie-grid">
+      <section class="free-pages-section section-pad" id="free-pages" aria-labelledby="free-pages-title">
+        <div class="section-shell free-pages-grid">
           <div>
             <p class="eyebrow">A little gift</p>
-            <h2 id="freebie-title">Get Free Coloring Pages</h2>
+            <h2 id="free-pages-title">Free Coloring Pages</h2>
             <p>
-              Join the Kooki list and receive a printable sample page with bold lines, cute characters, and a little cozy color break.
+              Try a Kooki page before you shop. Get a printable sample page with bold lines, cute characters, and a cozy creative mood.
             </p>
+            <a class="button primary" href="#newsletter">Send Me Free Pages</a>
+          </div>
+          <img src="assets/real/covers/free-bonus-page.jpg" alt="Free printable Kooki bonus coloring page with poolside characters">
+        </div>
+      </section>
+
+      <section class="social-section section-pad" id="community" aria-labelledby="community-title">
+        <div class="section-shell social-grid">
+          <div>
+            <p class="eyebrow">Join the Kooki Community</p>
+            <h2 id="community-title">Color Along With Us</h2>
+            <p>
+              Follow new releases, cozy palettes, finished pages, and behind-the-scenes sketches from the Kooki coloring corner.
+            </p>
+          </div>
+          <div class="social-card-grid" aria-label="Kooki Coloring social links">
+            <a class="social-card instagram" href="https://www.instagram.com/kookicoloring/" aria-label="Follow Kooki Coloring on Instagram">
+              <span class="social-card-icon" aria-hidden="true">Instagram</span>
+              <strong>Instagram</strong>
+            </a>
+            <a class="social-card tiktok" href="https://www.tiktok.com/@kookicoloring" aria-label="Follow Kooki Coloring on TikTok">
+              <span class="social-card-icon" aria-hidden="true">TikTok</span>
+              <strong>TikTok</strong>
+            </a>
+            <a class="social-card pinterest" href="https://www.pinterest.com/kookicoloring/" aria-label="Follow Kooki Coloring on Pinterest">
+              <span class="social-card-icon" aria-hidden="true">Pinterest</span>
+              <strong>Pinterest</strong>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="newsletter-section section-pad" id="newsletter" aria-labelledby="newsletter-title">
+        <div class="section-shell newsletter-grid">
+          <div>
+            <p class="eyebrow">Cozy notes, not clutter</p>
+            <h2 id="newsletter-title">Get Free Pages in Your Inbox</h2>
+            <p>Sign up for printable pages, gentle shop updates, and seasonal Kooki releases.</p>
           </div>
           <form class="signup-form" id="freebieForm">
             <div class="field-group">
@@ -156,58 +168,6 @@
             <button class="button primary" type="submit">Send Me Free Pages</button>
             <p class="form-note" id="freebieMessage" aria-live="polite">No spam, just gentle creative notes and new page releases.</p>
           </form>
-        </div>
-      </section>
-
-      <section class="blog-section section-pad" id="blog" aria-labelledby="blog-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Learn and play</p>
-              <h2 id="blog-title">Coloring Journal</h2>
-            </div>
-            <a class="text-link" href="#footer-newsletter">Get updates</a>
-          </div>
-          <div class="blog-grid"></div>
-        </div>
-      </section>
-
-      <section class="proof-section section-pad" aria-labelledby="proof-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Loved by colorists</p>
-              <h2 id="proof-title">A softer way to unwind</h2>
-            </div>
-          </div>
-          <div class="logo-row" aria-label="Placeholder featured on logos">
-            <span>Cozy Desk Club</span>
-            <span>Mindful Makers</span>
-            <span>Color Night Notes</span>
-            <span>Creative Home Edit</span>
-          </div>
-          <div class="testimonial-grid"></div>
-        </div>
-      </section>
-
-      <section class="gallery-section section-pad" id="gallery" aria-labelledby="gallery-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <div>
-              <p class="eyebrow">Community color</p>
-              <h2 id="gallery-title">Finished Page Gallery</h2>
-            </div>
-            <p>Use this area for customer photos, tagged posts, or your own finished samples.</p>
-          </div>
-          <div class="gallery-grid"></div>
-        </div>
-      </section>
-
-      <section class="faq-section section-pad" id="faq" aria-labelledby="faq-title">
-        <div class="section-shell narrow">
-          <p class="eyebrow">Helpful details</p>
-          <h2 id="faq-title">FAQ</h2>
-          <div class="faq-list"></div>
         </div>
       </section>
     </main>
@@ -224,36 +184,37 @@
           </p>
           <p class="footer-domain">www.kookicoloring.com</p>
         </div>
-        <div>
-          <h2>Shop</h2>
-          <a href="#all-books">All Books & Downloads</a>
-          <a href="#best-sellers">Best Sellers</a>
-          <a href="#free-pages">Free Pages</a>
-        </div>
-        <div>
-          <h2>Collections</h2>
-          <a href="#collections">Free Pages</a>
-          <a href="#collections">Bold & Easy</a>
-          <a href="#collections">Seasonal</a>
-        </div>
-        <div>
-          <h2>Journal</h2>
-          <a href="#blog">Coloring Tips</a>
-          <a href="#blog">Tools & Supplies</a>
-          <a href="#blog">Behind the Books</a>
-          <a href="mailto:hello@kookicoloring.com">hello@kookicoloring.com</a>
-        </div>
-        <form class="footer-newsletter" id="footer-newsletter">
-          <h2>Newsletter</h2>
-          <label class="sr-only" for="footerEmail">Email address</label>
-          <input id="footerEmail" type="email" placeholder="Email address" required>
-          <button class="button secondary" type="submit">Join</button>
+        <nav class="footer-links" aria-label="Footer links">
+          <h2>Links</h2>
+          <a href="shop/">Shop</a>
+          <a href="#free-pages">Free Coloring Pages</a>
+          <a href="mailto:hello@kookicoloring.com">Contact</a>
+        </nav>
+        <div class="footer-social">
+          <h2>Follow</h2>
           <div class="social-links" aria-label="Social links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="Pinterest">Pinterest</a>
-            <a href="#" aria-label="TikTok">TikTok</a>
+            <a href="https://www.instagram.com/kookicoloring/" aria-label="Instagram">
+              <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <rect x="4" y="4" width="16" height="16" rx="5"></rect>
+                <circle cx="12" cy="12" r="3.5"></circle>
+                <circle cx="16.7" cy="7.3" r="0.8"></circle>
+              </svg>
+              <span class="sr-only">Instagram</span>
+            </a>
+            <a href="https://www.tiktok.com/@kookicoloring" aria-label="TikTok">
+              <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M14 4v10.15a3.85 3.85 0 1 1-3.85-3.85c.32 0 .62.04.92.12v2.55a1.45 1.45 0 1 0 .98 1.37V4h1.95c.42 2.02 1.82 3.52 4 3.78v2.48A6.6 6.6 0 0 1 14 8.85"></path>
+              </svg>
+              <span class="sr-only">TikTok</span>
+            </a>
+            <a href="https://www.pinterest.com/kookicoloring/" aria-label="Pinterest">
+              <svg class="social-icon" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M11.5 20c.45-1.8.9-3.6 1.35-5.4.5.95 1.45 1.55 2.65 1.55 3 0 5-2.75 5-6.05 0-3.15-2.65-5.85-6.7-5.85-4.75 0-7.3 3.15-7.3 6.55 0 1.9.9 3.4 2.35 4.05.25.1.45 0 .52-.28l.25-1.05c.08-.28.05-.38-.15-.62-.5-.6-.82-1.35-.82-2.42 0-2.45 1.92-4.7 5-4.7 2.72 0 4.25 1.7 4.25 4.02 0 2.65-1.25 4.55-2.92 4.55-.95 0-1.65-.78-1.42-1.75.28-1.15.82-2.4.82-3.25 0-.75-.4-1.38-1.25-1.38-.98 0-1.78 1.02-1.78 2.38 0 .88.3 1.48.3 1.48L10.4 17.2c-.28 1.15-.28 2.1-.18 2.8"></path>
+              </svg>
+              <span class="sr-only">Pinterest</span>
+            </a>
           </div>
-        </form>
+        </div>
       </div>
       <p class="copyright">Copyright <span id="year"></span> Kooki Coloring. Cozy coloring books, free pages, and creative shop updates.</p>
     </footer>
@@ -265,16 +226,6 @@
         </svg>
       </button>
       <div class="dialog-content"></div>
-    </dialog>
-
-    <dialog class="wishlist-dialog" id="wishlistDialog" aria-labelledby="wishlistTitle">
-      <button class="dialog-close" type="button" aria-label="Close wishlist">
-        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
-          <path d="M18 6 6 18M6 6l12 12"></path>
-        </svg>
-      </button>
-      <h2 id="wishlistTitle">Your Favorites</h2>
-      <div class="wishlist-list"></div>
     </dialog>
   </body>
 </html>
