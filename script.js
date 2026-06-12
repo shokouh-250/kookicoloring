@@ -10,6 +10,11 @@ const products = [
     previews: [
       { image: "assets/Book Covers/Cozy Rosy/cozy-rosy-back cover.JPG", alt: "Cozy Rosy back cover with book details" },
     ],
+    flipImages: [
+      "assets/Book Covers/Cozy Rosy/3.JPG",
+      "assets/Book Covers/Cozy Rosy/4.JPG",
+      "assets/Book Covers/Cozy Rosy/13.JPG",
+    ],
     sections: ["new", "best", "physical"],
     collection: "Cute & Cozy",
     format: "Paperback",
@@ -30,6 +35,11 @@ const products = [
       { image: "assets/Book Covers/Cutie Pies/cutie-pies-back cover.jpg.JPG", alt: "Cutie Pies back cover with book details" },
       { image: "assets/real/previews/cutie-pies-sample-grid.jpg", alt: "Cutie Pies sample page grid" },
     ],
+    flipImages: [
+      "assets/Book Covers/Cutie Pies/15.JPG",
+      "assets/Book Covers/Cutie Pies/16.JPG",
+      "assets/Book Covers/Cutie Pies/17.JPG",
+    ],
     sections: ["new", "best", "physical"],
     collection: "Soft & Sweet",
     format: "Paperback",
@@ -48,6 +58,11 @@ const products = [
     alt: "Pawtraits of Time coloring book front cover",
     previews: [
       { image: "assets/Book Covers/Pawtraits of Time/Pawtraits-of-time-back cover.JPG", alt: "Pawtraits of Time back cover with book details" },
+    ],
+    flipImages: [
+      "assets/Book Covers/Pawtraits of Time/1.JPG",
+      "assets/Book Covers/Pawtraits of Time/__طرح۱۰_.jpg",
+      "assets/Book Covers/Pawtraits of Time/صفحه_۱۳_لباس_سنتی_چین (1).jpg",
     ],
     sections: ["new", "physical"],
     collection: "Pets & Portraits",
@@ -68,6 +83,11 @@ const products = [
     previews: [
       { image: "assets/Book Covers/Everyday Joy/Everday-joy-back cover.JPG", alt: "Everyday Joy back cover with book details" },
     ],
+    flipImages: [
+      "assets/Book Covers/Everyday Joy/010.jpg",
+      "assets/Book Covers/Everyday Joy/024.jpg",
+      "assets/Book Covers/Everyday Joy/025.jpg",
+    ],
     sections: ["new", "digital", "physical"],
     collection: "Cute & Cozy",
     format: "Paperback / PDF",
@@ -87,6 +107,11 @@ const products = [
     previews: [
       { image: "assets/Book Covers/Soft Days/Soft-Days-Back Cover.png", alt: "Soft Days back cover with book details" },
     ],
+    flipImages: [
+      "assets/Book Covers/Soft Days/05 (1).jpg",
+      "assets/Book Covers/Soft Days/011-1.jpg",
+      "assets/Book Covers/Soft Days/012-1.jpg",
+    ],
     sections: ["new", "digital"],
     collection: "Cute & Cozy",
     format: "PDF Download",
@@ -105,6 +130,11 @@ const products = [
     alt: "Relaxed Lines coloring book cover with a treehouse and Kooki logo",
     previews: [
       { image: "assets/Book Covers/Relaxed Lines/Relaxed-lines- back cover.JPG", alt: "Relaxed Lines back cover with book details" },
+    ],
+    flipImages: [
+      "assets/Book Covers/Relaxed Lines/14.JPG",
+      "assets/Book Covers/Relaxed Lines/15.JPG",
+      "assets/Book Covers/Relaxed Lines/16.JPG",
     ],
     sections: ["best", "physical"],
     collection: "Bold & Easy",
@@ -127,6 +157,11 @@ const products = [
       { image: "assets/real/previews/pattern-party-sample-grid.jpg", alt: "Pattern Party sample spread with puzzles and repeating patterns" },
       { image: "assets/real/gallery/pattern-party-four-panels.jpg", alt: "Four colored Pattern Party panels" },
     ],
+    flipImages: [
+      "assets/Book Covers/Pattern Party/6.JPG",
+      "assets/Book Covers/Pattern Party/8.JPG",
+      "assets/Book Covers/Pattern Party/9.JPG",
+    ],
     sections: ["best", "physical"],
     collection: "Pattern Play",
     format: "Paperback",
@@ -147,6 +182,11 @@ const products = [
       { image: "assets/Book Covers/The NibNubs/The-NibNubs- Back cover.png", alt: "The NibNubs back cover with book details" },
       { image: "assets/real/previews/nibnubs-seahorse-page.jpg", alt: "Black and white Nibnubs seahorse coloring page" },
       { image: "assets/real/gallery/nibnubs-fish-finished.jpg", alt: "Finished Nibnubs fish coloring page" },
+    ],
+    flipImages: [
+      "assets/Book Covers/The NibNubs/IMG_7251.JPG",
+      "assets/Book Covers/The NibNubs/IMG_7252.JPG",
+      "assets/Book Covers/The NibNubs/IMG_7257.JPG",
     ],
     sections: ["new", "physical"],
     collection: "Kids",
@@ -169,6 +209,11 @@ const products = [
       { image: "assets/real/gallery/boo-crew-picnic-finished.jpg", alt: "Finished Boo Crew ghost picnic coloring page" },
       { image: "assets/real/gallery/boo-crew-pumpkin-finished.jpg", alt: "Finished Boo Crew characters inside a pumpkin" },
     ],
+    flipImages: [
+      "assets/Book Covers/The Boo Crew/IMG_7611.JPG",
+      "assets/Book Covers/The Boo Crew/IMG_7612.JPG",
+      "assets/Book Covers/The Boo Crew/IMG_7617.JPG",
+    ],
     sections: ["new", "digital", "physical"],
     collection: "Spooky Cute",
     format: "Paperback",
@@ -187,6 +232,11 @@ const products = [
     alt: "Emma's Christmas coloring book front cover",
     previews: [
       { image: "assets/Book Covers/Emma's Christmas/Emma's-Christmas-Back Cover.png", alt: "Emma's Christmas back cover with book details" },
+    ],
+    flipImages: [
+      "assets/Book Covers/Emma's Christmas/p-14.jpg",
+      "assets/Book Covers/Emma's Christmas/p-15.jpg",
+      "assets/Book Covers/Emma's Christmas/p-17.jpg",
     ],
     sections: ["new", "physical"],
     collection: "Seasonal",
@@ -373,15 +423,37 @@ function createPurchaseLinks(product, variant = "card") {
   `;
 }
 
+function createFlipPages(product) {
+  const pages = product.flipImages?.slice(0, 3) || [];
+  if (!pages.length) {
+    return "";
+  }
+
+  return `
+    <div class="flip-pages" aria-hidden="true">
+      ${pages
+        .map((image, index) => `
+          <img class="flip-page flip-page-${index + 1}" src="${image}" alt="" loading="lazy">
+        `)
+        .join("")}
+    </div>
+  `;
+}
+
 function createProductCard(product) {
   const card = document.createElement("article");
   const imageStyle = product.imagePosition ? ` style="object-position: ${product.imagePosition};"` : "";
   card.className = "product-card";
   card.dataset.search = `${product.title} ${product.description} ${product.badge} ${product.collection} ${product.format}`.toLowerCase();
   card.dataset.productId = product.id;
+  card.tabIndex = 0;
+  card.setAttribute("aria-label", `View ${product.title} details`);
   card.innerHTML = `
     <div class="product-media">
-      <img src="${product.image}" alt="${product.alt}" loading="lazy"${imageStyle}>
+      <div class="book-flip">
+        <img class="product-cover" src="${product.image}" alt="${product.alt}" loading="lazy"${imageStyle}>
+        ${createFlipPages(product)}
+      </div>
     </div>
     <span class="badge">${product.badge}</span>
     <button class="favorite-button" type="button" aria-label="Add ${product.title} to wishlist" aria-pressed="false" data-favorite="${product.id}">
@@ -604,6 +676,10 @@ function closeDialog(button) {
   button.closest("dialog")?.close();
 }
 
+function isInteractiveTarget(target) {
+  return Boolean(target.closest("a, button, input, textarea, select, label, summary"));
+}
+
 function initEvents() {
   searchInput.addEventListener("input", (event) => filterProducts(event.target.value));
 
@@ -622,17 +698,35 @@ function initEvents() {
       if (favorite.closest("dialog")) {
         openProduct(favorite.dataset.favorite);
       }
+      return;
     }
 
     const view = event.target.closest("[data-view]");
     if (view) {
       openProduct(view.dataset.view);
+      return;
     }
 
     const close = event.target.closest(".dialog-close");
     if (close) {
       closeDialog(close);
+      return;
     }
+
+    const card = event.target.closest(".product-card");
+    if (card && !isInteractiveTarget(event.target)) {
+      openProduct(card.dataset.productId);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const card = event.target.closest(".product-card");
+    if (!card || event.target !== card || !["Enter", " "].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+    openProduct(card.dataset.productId);
   });
 
   document.querySelector(".wishlist-toggle").addEventListener("click", openWishlist);

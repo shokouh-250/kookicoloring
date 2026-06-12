@@ -527,6 +527,7 @@ h3 {
   background: var(--cream);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  cursor: pointer;
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
@@ -535,10 +536,17 @@ h3 {
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
-.product-card:hover {
+.product-card:hover,
+.product-card:focus-visible,
+.product-card:focus-within {
   border-color: #e6c5a6;
   box-shadow: var(--soft-shadow);
   transform: translateY(-3px);
+}
+
+.product-card:focus-visible {
+  outline: 3px solid rgba(31, 127, 139, 0.35);
+  outline-offset: 3px;
 }
 
 .product-media {
@@ -548,13 +556,70 @@ h3 {
   overflow: hidden;
   padding: 0.45rem;
   place-items: center;
+  perspective: 900px;
+}
+
+.book-flip {
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  width: 100%;
 }
 
 .product-media img {
   height: 100%;
   object-fit: contain;
   object-position: center;
+  position: absolute;
+  inset: 0;
   width: 100%;
+}
+
+.product-cover {
+  opacity: 1;
+  transform: translateZ(0);
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 1;
+}
+
+.flip-pages {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.flip-page {
+  background: #fffdf8;
+  border-radius: 0.45rem;
+  box-shadow: 0 14px 28px rgba(70, 48, 34, 0.12);
+  opacity: 0;
+  transform: rotateY(-44deg) translateX(-8%) scale(0.96);
+  transform-origin: left center;
+}
+
+.flip-page-1 {
+  --flip-delay: 2s;
+}
+
+.flip-page-2 {
+  --flip-delay: 4.3s;
+}
+
+.flip-page-3 {
+  --flip-delay: 6.6s;
+}
+
+.product-card:hover .product-cover,
+.product-card:focus-within .product-cover,
+.product-card:focus-visible .product-cover {
+  animation: coverRest 7.1s ease 2s infinite both;
+}
+
+.product-card:hover .flip-page,
+.product-card:focus-within .flip-page,
+.product-card:focus-visible .flip-page {
+  animation: flipPagePeek 7.1s ease var(--flip-delay) infinite both;
 }
 
 .badge {
@@ -583,6 +648,7 @@ h3 {
   top: 0.7rem;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
   width: 40px;
+  z-index: 4;
 }
 
 .favorite-button:hover,
@@ -662,6 +728,7 @@ h3 {
   min-height: 40px;
   padding: 0.58rem 0.78rem;
   white-space: nowrap;
+  z-index: 3;
 }
 
 .purchase-link .icon {
@@ -688,6 +755,48 @@ h3 {
   margin-top: 0.15rem;
   min-height: 42px;
   padding: 0.58rem 0.9rem;
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes coverRest {
+  0%,
+  5% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  14%,
+  82% {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+
+  92%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes flipPagePeek {
+  0%,
+  12% {
+    opacity: 0;
+    transform: rotateY(-48deg) translateX(-9%) scale(0.95);
+  }
+
+  22%,
+  42% {
+    opacity: 1;
+    transform: rotateY(0deg) translateX(0) scale(1);
+  }
+
+  55%,
+  100% {
+    opacity: 0;
+    transform: rotateY(28deg) translateX(8%) scale(0.98);
+  }
 }
 
 .no-results {
