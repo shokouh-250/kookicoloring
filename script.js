@@ -261,14 +261,9 @@ const products = [
 ];
 
 const collections = [
-  { name: "Cute & Cozy", color: "#f8d6bf", icon: "M8 18V9l4-4 4 4v9M10 18v-5h4v5" },
-  { name: "Soft & Sweet", color: "#d6e2d4", icon: "M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10Z" },
-  { name: "Bold & Easy", color: "#f5df89", icon: "M7 7h10v10H7zM4 12h16" },
-  { name: "Pattern Play", color: "#9fe7e2", icon: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" },
-  { name: "Pets & Portraits", color: "#f4c6b8", icon: "M7 14s-2-1.5-2-4a2.5 2.5 0 0 1 5 0c0 2.5-3 4-3 4Zm10 0s-3-1.5-3-4a2.5 2.5 0 0 1 5 0c0 2.5-2 4-2 4ZM8 19c0-3 2-5 4-5s4 2 4 5M12 8v3" },
-  { name: "Seasonal", color: "#f7c98c", icon: "M12 3v18M5 8l14 8M19 8 5 16" },
-  { name: "Spooky Cute", color: "#c7b4e8", icon: "M5 20V9a7 7 0 0 1 14 0v11l-3-2-3 2-3-2-2 2-3-2Z" },
   { name: "Free Pages", color: "#dce9b2", icon: "M7 3h7l4 4v14H7zM14 3v5h5M9 13h6M9 17h6" },
+  { name: "Bold & Easy", color: "#f5df89", icon: "M7 7h10v10H7zM4 12h16" },
+  { name: "Seasonal", color: "#f7c98c", icon: "M12 3v18M5 8l14 8M19 8 5 16" },
 ];
 
 const blogCards = [
@@ -414,7 +409,7 @@ function renderProducts() {
     const sectionName = section.dataset.section;
     const fragment = document.createDocumentFragment();
     products
-      .filter((product) => product.sections.includes(sectionName))
+      .filter((product) => sectionName === "all" || product.sections.includes(sectionName))
       .forEach((product) => fragment.appendChild(createProductCard(product)));
 
     const empty = document.createElement("div");
@@ -507,6 +502,7 @@ function filterProducts(query) {
 
     const empty = section.querySelector(".no-results");
     empty.style.display = sectionVisible ? "none" : "block";
+    section.closest(".product-section").hidden = Boolean(normalized && !sectionVisible);
   });
 
   searchStatus.textContent = normalized
